@@ -1,0 +1,7 @@
+[Unit]
+Description=Clipboard history (cliphist)
+
+[Service]
+ExecStart=/usr/bin/wl-paste --watch /usr/bin/cliphist store
+Restart=always
+RestartSec=1
