@@ -1,4 +1,4 @@
-# minimal-dmenu-tools
+# Minimal-Dmenu-Tools
 
 Collection of small **dmenu-like utilities** for Linux.
 
@@ -36,8 +36,8 @@ All tools are designed to be **simple, scriptable and lightweight**.
 Clone the repository:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/minimal-dmenu-tools.git
-cd minimal-dmenu-tools
+git clone https://github.com/jf-arraigada/Minimal-Dmenu-Tools.git
+cd Minimal-Dmenu-Tools
 ```
 
 Run the installer:

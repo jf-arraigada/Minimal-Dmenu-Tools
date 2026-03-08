@@ -10,7 +10,7 @@ LOG_FILE="$INSTALL_DIR/install_log"
 
 mkdir -p "$INSTALL_DIR"
 
-exec > >(awk '{ print strftime("[%Y-%m-%d %H:%M:%S]"), $0 }' | tee -a "$LOG_FILE") 2>&1
+exec > >(awk '{ print strftime("[%Y-%m-%d %H:%M:%S]"), $0 }' | tee -a "$LOG_FILE") 2> >(awk '{ print strftime("[%Y-%m-%d %H:%M:%S]"), $0 }' | tee -a "$LOG_FILE" >&2)
 
 install_module() {
   "$CURRENT_DIR/$1/install.sh"
@@ -79,7 +79,9 @@ for opt in "${opts[@]}"; do
        install_module clipboard-menu
        install_module power-menu
        install_module kill-proccess-menu
-       install_module audio-menu"
+       install_module audio-menu
+    ;;
+    *) error "No module selected!" 
     ;;
 
   esac
