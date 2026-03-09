@@ -5,3 +5,10 @@
 [2026-03-08 01:46:33] Don't worry buddy :) the most of the changes needed will be about d-menu flags
 [2026-03-08 01:46:33] Select your D-Menu:
 [2026-03-08 01:46:42] [1]bemenu, [2]fuzzel, [3]rofi, [4]wofi, [5]other
+[2026-03-08 02:02:51] [1]bemenu, [2]fuzzel, [3]rofi, [4]wofi, [5]other
+[2026-03-08 02:02:43] Welcome to the General Installation Menu for "Minimal D-menu Tools!"
+[2026-03-08 02:02:43] All the scripts were made using bemenu (wayland), but only a few don't work with another d-menu-like (fuzzel, wofi, rofi)
+[2026-03-08 02:02:43] Please, if you don't use bemenu, check the config file at ~/.minimal-dmenu-tools/config/ directory
+[2026-03-08 02:02:43] Also all the module-install scripts will noticed wich line/s you need to change
+[2026-03-08 02:02:43] Don't worry buddy :) the most of the changes needed will be about d-menu flags
+[2026-03-08 02:02:43] Select your D-Menu:

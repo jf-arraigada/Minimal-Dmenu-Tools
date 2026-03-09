@@ -5,19 +5,20 @@ set -euo pipefail
 if [ "$MINIMAL_DMENU_TOOLS_GENERAL" != "true" ]; then
   MDT_ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd && cd ..)"
   MDT_INSTALL_DIR="$HOME/.minimal-dmenu-tools"
+  LOG_FILE="$MDT_ROOT_DIR/install.log"
 
   source "$MDT_ROOT_DIR/common/common.sh"
   
-  log "Installing wifi-menu:"
+  log "Installing wifi-menu:" "$LOG_FILE"
 
   mkdir -p "$MDT_INSTALL_DIR"
 
-  echo 'Welcome to the Wifi-Menu Installation Menu for "Minimal D-menu Tools!"'
+  msg 'Welcome to the Wifi-Menu Installation Menu for "Minimal D-menu Tools!"'
 
-  echo "Select your D-Menu:"
+  msg "Select your D-Menu:"
   read -p  "[1]bemenu, [2]fuzzel, [3]rofi, [4]wofi, [5]other" DMENU 
   if [[ ! "$DMENU" =~ ^[0-9]+$ ]]; then
-    error "Invalid option: $opt"
+    error "Invalid option: $opt" "$LOG_FILE"
   fi
 
   case "$DMENU" in
@@ -43,7 +44,7 @@ if [ "$MINIMAL_DMENU_TOOLS_GENERAL" != "true" ]; then
 else
   source "$CURRENT_DIR/common/common.sh"
 
-  log "Installing wifi-menu:"
+  log "Installing wifi-menu:" "$LOG_FILE"
 
   CONFIG_INSTALL_DIR="$INSTALL_DIR/config"
   WIFI_INSTALL_DIR="$INSTALL_DIR/wifi-menu"
@@ -52,8 +53,8 @@ fi
 
 mkdir -p "$WIFI_INSTALL_DIR"
 
-require "nmcli" 
-require "systemctl"
+require "nmcli" "$LOG_FILE" 
+require "systemctl" "$LOG_FILE"
 
 
 cp "$WIFI_CURRENT_DIR/wifi-menu.sh" "$WIFI_INSTALL_DIR"
@@ -68,18 +69,18 @@ systemctl --user start wifi-daemon.service
 
 case "$SELECTED_DMENU" in
     "bemenu") 
-      log "WiFi-menu installation succed!" 
+      log "WiFi-menu installation succed!" "$LOG_FILE"
       ;;
     *) 
-      log "WiFi-menu installation succed! Please fix:"
-      echo "[Var] in line 24 of $CONFIG_INSTALL_DIR/config.sh"
-      echo "[Flag] in line 25 of $CONFIG_INSTALL_DIR/config.sh"
-      echo "[Flag] in line 33 of $CONFIG_INSTALL_DIR/config.sh"
-      echo "[Theme] in line 5 of $WIFI_INSTALL_DIR/wifi-menu.sh"
-      echo "[Flag] in line 18 of $WIFI_INSTALL_DIR/wifi-menu.sh"
-      echo "[Flag] in line 19 of $WIFI_INSTALL_DIR/wifi-menu.sh"
-      echo "[Flag] in line 20 of $WIFI_INSTALL_DIR/wifi-menu.sh"
-      echo "[FUNCTION] in line 26 of $WIFI_INSTALL_DIR/wifi-menu.sh"
+      log "WiFi-menu installation succed! Please fix:" "$LOG_FILE"
+      msg "[Var] in line 24 of $CONFIG_INSTALL_DIR/config.sh" "$LOG_FILE"
+      msg "[Flag] in line 25 of $CONFIG_INSTALL_DIR/config.sh" "$LOG_FILE"
+      msg "[Flag] in line 33 of $CONFIG_INSTALL_DIR/config.sh" "$LOG_FILE"
+      msg "[Theme] in line 5 of $WIFI_INSTALL_DIR/wifi-menu.sh" "$LOG_FILE"
+      msg "[Flag] in line 18 of $WIFI_INSTALL_DIR/wifi-menu.sh" "$LOG_FILE"
+      msg "[Flag] in line 19 of $WIFI_INSTALL_DIR/wifi-menu.sh" "$LOG_FILE"
+      msg "[Flag] in line 20 of $WIFI_INSTALL_DIR/wifi-menu.sh" "$LOG_FILE"
+      msg "[FUNCTION] in line 26 of $WIFI_INSTALL_DIR/wifi-menu.sh" "$LOG_FILE"
       ;;
 esac
 

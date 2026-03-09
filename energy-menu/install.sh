@@ -5,19 +5,20 @@ set -euo pipefail
 if [ "$MINIMAL_DMENU_TOOLS_GENERAL" != "true" ]; then
   MDT_ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd && cd ..)"
   MDT_INSTALL_DIR="$HOME/.minimal-dmenu-tools"
+  LOG_FILE="$MDT_ROOT_DIR/install.log"
 
   source "$MDT_ROOT_DIR/common/common.sh"
 
-  log "Installing energy-menu:"
+  log "Installing energy-menu:" "$LOG_FILE"
 
   mkdir -p "$MDT_INSTALL_DIR"
 
-  echo 'Welcome to the energy-menu Installation Menu for "Minimal D-menu Tools!"'
+  msg 'Welcome to the energy-menu Installation Menu for "Minimal D-menu Tools!"'
 
-  echo "Select your D-Menu:"
+  msg "Select your D-Menu:"
   read -p  "[1]bemenu, [2]fuzzel, [3]rofi, [4]wofi, [5]other" DMENU 
   if [[ ! "$DMENU" =~ ^[0-9]+$ ]]; then
-    error "Invalid option: $opt"
+    error "Invalid option: $opt" "$LOG_FILE"
   fi
 
   case "$DMENU" in
@@ -43,7 +44,7 @@ if [ "$MINIMAL_DMENU_TOOLS_GENERAL" != "true" ]; then
 else
   source "$CURRENT_DIR/common/common.sh"
 
-  log "Installing energy-menu:"
+  log "Installing energy-menu:" "$LOG_FILE"
 
   CONFIG_INSTALL_DIR="$INSTALL_DIR/config"
   ENERGY_INSTALL_DIR="$INSTALL_DIR/energy-menu"
@@ -52,7 +53,7 @@ fi
 
 mkdir -p "$ENERGY_INSTALL_DIR"
 
-require "cpupower" 
+require "cpupower" "$LOG_FILE"
 
 
 cp "$ENERGY_CURRENT_DIR/energy-menu.sh" "$ENERGY_INSTALL_DIR"
@@ -60,15 +61,15 @@ cp "$ENERGY_CURRENT_DIR/energy-menu.sh" "$ENERGY_INSTALL_DIR"
 
 case "$SELECTED_DMENU" in
     "bemenu") 
-      log "energy-menu installation succed!" 
+      log "energy-menu installation succed!" "$LOG_FILE"
       ;;
     *) 
-      log "energy-menu installation succed! Please fix:"
-      echo "[Var] in line 24 of $CONFIG_INSTALL_DIR/config.sh"
-      echo "[Flag] in line 25 of $CONFIG_INSTALL_DIR/config.sh"
-      echo "[Flag] in line 33 of $CONFIG_INSTALL_DIR/config.sh"
-      echo "[Theme] in line 9 of $ENERGY_INSTALL_DIR/energy-menu.sh"
-      echo "[Flag] in line 17 of $ENERGY_INSTALL_DIR/energy-menu.sh"
+      log "energy-menu installation succed! Please fix:" "$LOG_FILE"
+      msg "[Var] in line 24 of $CONFIG_INSTALL_DIR/config.sh" "$LOG_FILE"
+      msg "[Flag] in line 25 of $CONFIG_INSTALL_DIR/config.sh" "$LOG_FILE"
+      msg "[Flag] in line 33 of $CONFIG_INSTALL_DIR/config.sh" "$LOG_FILE"
+      msg "[Theme] in line 9 of $ENERGY_INSTALL_DIR/energy-menu.sh" "$LOG_FILE"
+      msg "[Flag] in line 17 of $ENERGY_INSTALL_DIR/energy-menu.sh" "$LOG_FILE"
       ;;
 esac
 

@@ -5,12 +5,9 @@ set -euo pipefail
 export MINIMAL_DMENU_TOOLS_GENERAL=true
 export CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 export INSTALL_DIR="$HOME/.minimal-dmenu-tools"
-
-LOG_FILE="$INSTALL_DIR/install_log"
+export LOG_FILE="$INSTALL_DIR/install.log"
 
 mkdir -p "$INSTALL_DIR"
-
-exec > >(awk '{ print strftime("[%Y-%m-%d %H:%M:%S]"), $0 }' | tee -a "$LOG_FILE") 2> >(awk '{ print strftime("[%Y-%m-%d %H:%M:%S]"), $0 }' | tee -a "$LOG_FILE" >&2)
 
 install_module() {
   "$CURRENT_DIR/$1/install.sh"
@@ -18,12 +15,12 @@ install_module() {
 
 source "$CURRENT_DIR/common/common.sh"
 
-echo 'Welcome to the General Installation Menu for "Minimal D-menu Tools!"'
-echo "All the scripts were made using bemenu (wayland), but only a few don't work with another d-menu-like (fuzzel, wofi, rofi)"
-echo "Please, if you don't use bemenu, check the config file at ~/.minimal-dmenu-tools/config/ directory"
-echo "Also all the module-install scripts will noticed wich line/s you need to change"
-echo "Don't worry buddy :) the most of the changes needed will be about d-menu flags"
-echo "Select your D-Menu:"
+msg 'Welcome to the General Installation Menu for "Minimal D-menu Tools!"'
+msg "All the scripts were made using bemenu (wayland), but only a few don't work with another d-menu-like (fuzzel, wofi, rofi)"
+msg "Please, if you don't use bemenu, check the config file at ~/.minimal-dmenu-tools/config/ directory"
+msg "Also all the module-install scripts will noticed wich line/s you need to change"
+msg "Don't worry buddy :) the most of the changes needed will be about d-menu flags"
+msg "Select your D-Menu:"
 read -p  "[1]bemenu, [2]fuzzel, [3]rofi, [4]wofi, [5]other" DMENU 
 if [[ ! "$DMENU" =~ ^[0-9]+$ ]]; then
   error "Invalid option: $opt"
@@ -38,7 +35,7 @@ case "$DMENU" in
 esac
 
 clear
-echo "Select script(s) to install:"
+msg "Select script(s) to install:"
 IFS=',' read -a opts -p "[1]wifi-menu, [2]bluetooth-menu, [3]note-menu, [4]energy-menu, [5]clipboard-menu, [6]power-menu, [7]kill-process-menu, [8]audio-menu, [0]All-menus"
 
 

@@ -5,19 +5,20 @@ set -euo pipefail
 if [ "$MINIMAL_DMENU_TOOLS_GENERAL" != "true" ]; then
   MDT_ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd && cd ..)"
   MDT_INSTALL_DIR="$HOME/.minimal-dmenu-tools"
+  LOG_FILE="$MDT_ROOT_DIR/install.log"
 
   source "$MDT_ROOT_DIR/common/common.sh"
 
-  log "Installing clipboard-menu:"
+  log "Installing clipboard-menu:" "$LOG_FILE"
 
   mkdir -p "$MDT_INSTALL_DIR"
 
-  echo 'Welcome to the clipboard-menu Installation Menu for "Minimal D-menu Tools!"'
+  msg 'Welcome to the clipboard-menu Installation Menu for "Minimal D-menu Tools!"'
 
-  echo "Select your D-Menu:"
+  msg "Select your D-Menu:"
   read -p  "[1]bemenu, [2]fuzzel, [3]rofi, [4]wofi, [5]other" DMENU 
   if [[ ! "$DMENU" =~ ^[0-9]+$ ]]; then
-    error "Invalid option: $opt"
+    error "Invalid option: $opt" "$LOG_FILE"
   fi
 
   case "$DMENU" in
@@ -43,7 +44,7 @@ if [ "$MINIMAL_DMENU_TOOLS_GENERAL" != "true" ]; then
 else
   source "$CURRENT_DIR/common/common.sh"
 
-  log "Installing clipboard-menu:"
+  log "Installing clipboard-menu:" "$LOG_FILE"
 
   CONFIG_INSTALL_DIR="$INSTALL_DIR/config"
   CLIPBOARD_INSTALL_DIR="$INSTALL_DIR/clipboard-menu"
@@ -52,8 +53,8 @@ fi
 
 mkdir -p "$CLIPBOARD_INSTALL_DIR"
 
-require "wl-clipboard" 
-require "systemctl"
+require "wl-clipboard" "$LOG_FILE"
+require "systemctl" "$LOG_FILE"
 
 
 cp "$CLIPBOARD_CURRENT_DIR/clipboard-menu.sh" "$CLIPBOARD_INSTALL_DIR"
@@ -63,24 +64,24 @@ systemctl --user daemon-reload
 systemctl --user enable cliphist.service
 systemctl --user start cliphist.service
 
-log "In some cases, the cliphist.service had problems with Sway or other WM so, considere to add to your sway config file this lines:"
-printf "exec_always {\n\t
-    systemctl --user import-environment WAYLAND_DISPLAY SWAYSOCK\n\t
-    systemctl --user start cliphist.service\n
-}"
+log "In some cases, the cliphist.service had problems with Sway or other WM so, considere to add to your sway config file this lines:" "$LOG_FILE"
+msg "exec_always {" "$LOG_FILE"
+msg "  systemctl --user import-environment WAYLAND_DISPLAY SWAYSOCK" "$LOG_FILE"
+msg "  systemctl --user start cliphist.service" "$LOG_FILE"
+msg "}" "$LOG_FILE"
 
 
 case "$SELECTED_DMENU" in
     "bemenu") 
-      log "clipboard-menu installation succed!" 
+      log "clipboard-menu installation succed!" "$LOG_FILE"
       ;;
     *) 
-      log "clipboard-menu installation succed! Please fix:"
-      echo "[Var] in line 24 of $CONFIG_INSTALL_DIR/config.sh"
-      echo "[Flag] in line 25 of $CONFIG_INSTALL_DIR/config.sh"
-      echo "[Flag] in line 33 of $CONFIG_INSTALL_DIR/config.sh"
-      echo "[Theme] in line 9 of $CLIPBOARD_INSTALL_DIR/clipboard-menu.sh"
-      echo "[Flag] in line 17 of $CLIPBOARD_INSTALL_DIR/clipboard-menu.sh"
+      log "clipboard-menu installation succed! Please fix:" "$LOG_FILE"
+      msg "[Var] in line 24 of $CONFIG_INSTALL_DIR/config.sh" "$LOG_FILE"
+      msg "[Flag] in line 25 of $CONFIG_INSTALL_DIR/config.sh" "$LOG_FILE"
+      msg "[Flag] in line 33 of $CONFIG_INSTALL_DIR/config.sh" "$LOG_FILE"
+      msg "[Theme] in line 9 of $CLIPBOARD_INSTALL_DIR/clipboard-menu.sh" "$LOG_FILE"
+      msg "[Flag] in line 17 of $CLIPBOARD_INSTALL_DIR/clipboard-menu.sh" "$LOG_FILE"
       ;;
 esac
 
