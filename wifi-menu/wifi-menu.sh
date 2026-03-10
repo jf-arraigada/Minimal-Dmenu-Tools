@@ -73,7 +73,6 @@ network_menu() {
     formatted+=("$(printf "%-25.25s  (%-11s)  %5s [%-9s]" "$ssid" "$signal" "$bars" "$security")")
   done
 
-  echo "$formatted"
   local choice
   choice=$(printf "%s\n" "${formatted[@]}" |
     nl -w2 -s' ' |
@@ -84,10 +83,13 @@ network_menu() {
   local index
   index=$(echo "$choice" | awk '{print $1}')
 
-  local selected_ssid
-  IFS='|' read -r selected_ssid _ <<< "${menu[$((index-1))]}"
+  local selected_line="${menu[$((index-1))]}"
+  local selected_ssid=$(echo "$selected_line" | cut -d'|' -f1)
 
-  [ -z "$selected_ssid" ] && return 1
+#  local selected_ssid
+#  IFS='|' read -r selected_ssid _ <<< "${menu[$((index-1))]}"
+
+#  [ -z "$selected_ssid" ] && return 1
 
   echo "$selected_ssid"
 }

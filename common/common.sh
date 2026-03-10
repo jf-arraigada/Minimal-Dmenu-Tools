@@ -1,23 +1,31 @@
 #!/usr/bin/env bash
 
 log() {
+  local time=$(date "+%Y-%m-%d %H:%M:%S")
+
   printf "\033[1;32m[INFO]\033[0m %s\n" "$1"
-  printf "\033[1;32m[INFO]\033[0m %s\n" "$1" >> "$2"
+  printf "[%s] [INFO] %s\n" "$time" "$1" >> "$2"
 }
 
 msg() {
+  local time=$(date "+%Y-%m-%d %H:%M:%S")
+
   printf "%s" "$1"
-  [ -n "$2" ] && printf "%s" "$1" >> "$2"
+  [ -n "$2" ] && printf "[%s] %s" "$time" "$1" >> "$2"
 }
 
 error() {
+  local time=$(date "+%Y-%m-%d %H:%M:%S")
+
   printf "\033[1;31m[ERROR]\033[0m %s\n" "$1" >&2
-  printf "\033[1;31m[ERROR]\033[0m %s\n" "$1" >> "$2"
+  printf "[%s] [ERROR] %s\n" "$time" "$1" >> "$2"
 }
 
 require() {
   command -v "$1" >/dev/null || {
-    msg "Missing dependency: $1" "$2"
+    local time=$(date "+%Y-%m-%d %H:%M:%S")
+
+    msg "[$time] Missing dependency: $1" "$2"
     exit 1
   }
 }
