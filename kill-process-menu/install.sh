@@ -16,7 +16,8 @@ if [ "$MINIMAL_DMENU_TOOLS_GENERAL" != "true" ]; then
   msg 'Welcome to the kill-process-menu Installation Menu for "Minimal D-menu Tools!"'
 
   msg "Select your D-Menu:"
-  read -p  "[1]bemenu, [2]fuzzel, [3]rofi, [4]wofi, [5]other" DMENU 
+  msg "[1]bemenu, [2]fuzzel, [3]rofi, [4]wofi, [5]other" 
+  read -p  ">>>" DMENU 
   if [[ ! "$DMENU" =~ ^[0-9]+$ ]]; then
     error "Invalid option: $opt" "$LOG_FILE"
   fi

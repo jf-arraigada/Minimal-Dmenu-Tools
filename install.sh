@@ -21,7 +21,8 @@ msg "Please, if you don't use bemenu, check the config file at ~/.minimal-dmenu-
 msg "Also all the module-install scripts will noticed wich line/s you need to change"
 msg "Don't worry buddy :) the most of the changes needed will be about d-menu flags"
 msg "Select your D-Menu:"
-read -p  "[1]bemenu, [2]fuzzel, [3]rofi, [4]wofi, [5]other\n>>>" DMENU 
+msg "[1]bemenu, [2]fuzzel, [3]rofi, [4]wofi, [5]other" 
+read -p  ">>>" DMENU 
 if [[ ! "$DMENU" =~ ^[0-9]+$ ]]; then
   error "Invalid option: $opt"
 fi
@@ -36,7 +37,8 @@ esac
 
 clear
 msg "Select script(s) to install:"
-IFS=',' read -a opts -p "[1]wifi-menu, [2]bluetooth-menu, [3]note-menu, [4]energy-menu, [5]clipboard-menu, [6]power-menu, [7]kill-process-menu, [8]audio-menu, [0]All-menus\n>>>"
+msg "[1]wifi-menu, [2]bluetooth-menu, [3]note-menu, [4]energy-menu, [5]clipboard-menu, [6]power-menu, [7]kill-process-menu, [8]audio-menu, [0]All-menus"
+IFS=',' read -a opts -p ">>>"
 
 
 mkdir -p "$INSTALL_DIR/config/themes"
