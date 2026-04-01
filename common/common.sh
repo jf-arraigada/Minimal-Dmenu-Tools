@@ -10,8 +10,7 @@ log() {
 msg() {
   local time=$(date "+%Y-%m-%d %H:%M:%S")
 
-  printf "%s" "$1"
-  [ -n "$2" ] && printf "[%s] %s" "$time" "$1" >> "$2"
+  printf "%s\n" "$1"
 }
 
 error() {

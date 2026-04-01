@@ -34,7 +34,7 @@ wifi_dmenu_launcher() {
   case "$position" in 
     center) flags=("${DMENU_CENTER_POS_FLAGS[@]}") ;;
     bottom) flags=("${DMENU_BOTTOM_POS_FLAGS[@]}") ;;
-    bottom-line) flags=("${DMENU_BOTTOM_LINE_POS_FLAGS}") ;;
+    bottom-line) flags=("${DMENU_BOTTOM_LINE_POS_FLAGS[@]}") ;;
     *) flags=("${DMENU_CENTER_POS_FLAGS[@]}") ;;
   esac
 
