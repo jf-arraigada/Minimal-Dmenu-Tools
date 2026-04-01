@@ -4,7 +4,7 @@ set -euo pipefail
 
 export MINIMAL_DMENU_TOOLS_GENERAL=true
 export CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-export INSTALL_DIR="$HOME/.minimal-dmenu-tools"
+export INSTALL_DIR="$HOME/.minimal-dmenu-tools-2"
 export LOG_FILE="$INSTALL_DIR/install.log"
 
 mkdir -p "$INSTALL_DIR"
